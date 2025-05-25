@@ -10,3 +10,5 @@ const getDaysAgo = (daysBack) => {
     date.setDate(date.getDate() - daysBack);
     return date;
 };
+
+export {formatDate, getDaysAgo}
