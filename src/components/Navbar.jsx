@@ -40,7 +40,9 @@ function Nav({ onMenuToggle }) {
         </div>
 
         <div className="flex flex-row gap-4">
-          <ModeToggle className="md:hidden" />
+          <div className="md:hidden">
+            <ModeToggle />
+          </div>
           <Button
             variant="ghost"
             size="icon"
