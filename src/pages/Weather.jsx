@@ -1,14 +1,12 @@
 import React from "react";
-import { weatherService } from "@/services/weather.services";
 import WeatherContent from "@/components/WeatherContent";
+import { CityProvider } from "@/contexts/CityContext";
 
 function Weather() {
- 
-  
   return (
-    <div>
+    <CityProvider>
       <WeatherContent />
-    </div>
+    </CityProvider>
   );
 }
 
