@@ -1,11 +1,10 @@
 import React from "react";
-import { useNavigate, useLocation, Link } from "react-router";
+import {  useLocation, Link } from "react-router";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 
 function Nav({ onMenuToggle }) {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const navLinks = [
