@@ -1,8 +1,9 @@
 import React from "react";
-import {  useLocation, Link } from "react-router";
+import { useLocation, Link } from "react-router";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "./ui/mode-toggle";
 
 function Nav({ onMenuToggle }) {
   const location = useLocation();
@@ -39,6 +40,7 @@ function Nav({ onMenuToggle }) {
         </div>
 
         <div className="flex flex-row gap-4">
+          <ModeToggle className="md:hidden" />
           <Button
             variant="ghost"
             size="icon"
@@ -50,6 +52,7 @@ function Nav({ onMenuToggle }) {
         </div>
         <nav className="hidden md:flex items-center gap-4">
           <NavLinks />
+          <ModeToggle />
         </nav>
       </div>
     </header>

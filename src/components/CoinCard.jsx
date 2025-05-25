@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
 import { Spinner } from "./ui/spinner";
-import { useCryptoContext } from "@/contexts/PricesContext";
+import { useCryptoContext } from "@/contexts/PriceContext";
 export function CoinCard({ prices, isLoading }) {
   const { selectedCoin, error } = useCryptoContext();
 
