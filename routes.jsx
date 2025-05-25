@@ -3,6 +3,9 @@ import Prices from "@/pages/Prices";
 import Weather from "@/pages/Weather";
 import AppLayout from "@/layouts/AppLayout";
 import NotFound from "@/components/NotFound";
+import AuthLayout from "@/layouts/AuthLayout";
+import SignIn from "@/pages/(auth)/SignIn";
+import SignUp from "@/pages/(auth)/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +15,14 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/weather" replace /> },
       { path: "weather", element: <Weather /> },
       { path: "prices", element: <Prices /> },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      { path: "signin", element: <SignIn /> },
+      { path: "signup", element: <SignUp /> },
     ],
   },
   {
