@@ -138,4 +138,4 @@ Breakpoints:
 - [React Router](https://reactrouter.com/) for routing
 
 ## Deployed Version
-(https://weathprice.vercel.app/prices)
+(https://weathprice.vercel.app/weather)
