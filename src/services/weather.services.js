@@ -1,5 +1,8 @@
 import { weatherapiBaseURL } from "@/constants";
 import { formatDate } from "@/helpers";
+import { useQuery } from "@tanstack/react-query"
+
+const weatherapiApiKey = import.meta.env.VITE_WEATHERAPI_API_KEY
 
 export const weatherService = {
     getCurrentWeather({ city }) {
