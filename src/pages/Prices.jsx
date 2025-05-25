@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import PriceContent from "@/components/PriceContent";
 
 function Prices() {
   return (
-    <div>Prices</div>
-  )
+    <div>
+      <PriceContent />
+    </div>
+  );
 }
 
-export default Prices
+export default Prices;

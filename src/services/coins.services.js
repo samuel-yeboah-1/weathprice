@@ -11,7 +11,6 @@ export const coinsService = {
                     'x-cg-demo-api-key': coingeckoApiKey
                 }
             });
-
             if (!res.ok) {
                 throw new Error("Failed to fetch crypto historical data")
             }
@@ -21,9 +20,8 @@ export const coinsService = {
                 price
             }));
         } catch (error) {
-            throw new CryptoError(
-                'Failed to fetch historical data: ' + error.message,
-                'FETCH_ERROR'
+            throw new Error(
+                "failed to fetch crypto historical data", error
             );
         }
     },
