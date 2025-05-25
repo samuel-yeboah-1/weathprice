@@ -1,7 +1,33 @@
 import { useQuery } from "@tanstack/react-query"
 import { COINGECKO_API_URL } from "@/constants"
+import { formatPriceData } from "@/helpers";
 
 export const coinsService = {
+    async getHistoricalData(coinId, days = 7) {
+        try {
+            const res = await fetch(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}`, {
+                method: 'GET',
+                headers: {
+                    'x-cg-demo-api-key': coingeckoApiKey
+                }
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to fetch crypto historical data")
+            }
+            const data = await res.json();
+            return data.prices.map(([timestamp, price]) => ({
+                timestamp: new Date(timestamp),
+                price
+            }));
+        } catch (error) {
+            throw new CryptoError(
+                'Failed to fetch historical data: ' + error.message,
+                'FETCH_ERROR'
+            );
+        }
+    },
+
     getCryptoPrices: ({ coins = ['bitcoin', 'ethereum'] }) => {
         return useQuery({
             queryKey: ['cryptoPrices', coins],

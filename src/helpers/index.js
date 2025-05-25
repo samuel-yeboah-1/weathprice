@@ -11,4 +11,17 @@ const getDaysAgo = (daysBack) => {
     return date;
 };
 
-export {formatDate, getDaysAgo}
+const formatPriceData = (data) => {
+    const result = {};
+    Object.entries(data).forEach(([coinId, priceData]) => {
+        result[coinId] = {
+            price: priceData.usd,
+            priceChange24h: priceData.usd_24h_change,
+            volume24h: priceData.usd_24h_vol,
+            lastUpdate: new Date(priceData.last_updated_at * 1000)
+        };
+    });
+    return result;
+};
+
+export {formatDate, getDaysAgo, formatPriceData}
