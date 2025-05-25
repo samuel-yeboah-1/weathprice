@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { useAuthContext } from "@/contexts/AuthContext";
+import { Button } from "./ui/button";
+import { useNavigate } from "react-router";
+
 function Sidebar({ isOpen, onMenuToggle }) {
+  const { auth, logout } = useAuthContext();
+  const navigate = useNavigate();
   return (
     <aside
       className={`fixed inset-y-0 right-0 z-50 w-64 bg-secondary py-4 px-2
@@ -40,6 +46,12 @@ function Sidebar({ isOpen, onMenuToggle }) {
               Price
             </NavLink>
           </li>
+
+          {auth ? (
+            <Button onClick={() => logout()}>Sign out</Button>
+          ) : (
+            <Button onClick={() => navigate("/auth/signin")}>Sign in</Button>
+          )}
         </ul>
       </nav>
     </aside>

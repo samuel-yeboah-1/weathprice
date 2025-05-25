@@ -3,7 +3,8 @@ import { Outlet } from 'react-router'
 
 function AuthLayout() {
   return (
-    <div>AuthLayout
+     <div className=" py-12 flex flex-col gap-10  items-center justify-center overf">
+      <p>Hello and Welcome to WeathPrice</p>
       <Outlet />
     </div>
   )
