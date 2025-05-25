@@ -1,22 +1,55 @@
-import CurrentWeather from "./CurrentWeather";
-import React, { useState, useEffect } from "react";
-import { useCityContext } from "@/contexts/CityContext";
 import { weatherService } from "@/services/weather.services";
-import { Spinner } from "./ui/spinner";
-import CitySkeleton from "./ui/CitySkeleton";
-import { useDebounce } from "@/hooks/useDebounce";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import React, { useState, useEffect } from "react";
 
-function WeatherContent() {
+import { useCityContext } from "@/contexts/CityContext";
+import { useDebounce } from "@/hooks/useDebounce";
+import { Card } from "@/components/ui/card";
+import CitySkeleton from "@/components/ui/CitySkeleton";
+import CurrentWeather from "@/components/CurrentWeather";
+import { Spinner } from "@/components/ui/spinner";
+import HourWeatherCard from "./HourWeatherCard";
+import HistoryWeather from "./HistoryWeather";
+
+// Create a separate component that uses the context
+export default function WeatherContent() {
   const { setSelectedCity, selectedCity } = useCityContext();
   const [inputCity, setInputCity] = useState("");
   const debouncedCity = useDebounce(inputCity, 1000);
 
   const {
     data: currentWeather,
-    error: currentWeatherError,
     isError: isCurrentWeatherError,
-    isLoading: isLoadingCurrentWeather,
-  } = weatherService.getCurrentWeather("accra");
+    isLoading: isCurrentWeatherLoading,
+    error: currentWeatherError,
+  } = weatherService.getCurrentWeather({ city: selectedCity });
+
+  const {
+    data: past24HrWeather,
+    isError: isPast24HrWeatherError,
+    isLoading: isPast24HrWeatherLoading,
+    error: past24HrWWeatherError,
+  } = weatherService.getPast24HrWeather({ city: selectedCity });
+
+  const {
+    data: historyWeather,
+    isError: isHistoryWeatherError,
+    isLoading: isHistoryWeatherLoading,
+    error: historyWeatherError,
+  } = weatherService.getHistoryWeather({ city: selectedCity,days:10 });
+
+  // Update selected city when debounced input changes
+  useEffect(() => {
+    if (debouncedCity.trim()) {
+      setSelectedCity(debouncedCity);
+    }
+  }, [debouncedCity, setSelectedCity]);
+
+  const handleCityChange = (e) => {
+    const value = e.target.value;
+    setInputCity(value);
+  };
 
   const renderCurrentWeatherError = () => {
     if (!isCurrentWeatherError) return null;
@@ -36,17 +69,26 @@ function WeatherContent() {
     );
   };
 
-  // Update selected city when debounced input changes
-  useEffect(() => {
-    if (debouncedCity.trim()) {
-      setSelectedCity(debouncedCity);
-    }
-  }, [debouncedCity, setSelectedCity]);
+  const renderPast24HrError = () => {
+    if (!isPast24HrWeatherError) return null;
 
-  const handleCityChange = (e) => {
-    const value = e.target.value;
-    setInputCity(value);
+    return (
+      <div className="p-4 text-red-500">
+        Error loading past 24hr weather data: {past24HrWWeatherError?.message}
+      </div>
+    );
   };
+
+  const renderHistoryWeatherError = () => {
+    if (!isHistoryWeatherError) return null;
+
+    return (
+      <div className="p-4 text-red-500">
+        Error loading past weather data: {historyWeatherError?.message}
+      </div>
+    );
+  };
+
   return (
     <div className="p-4 max-w-xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -68,7 +110,7 @@ function WeatherContent() {
       </div>
 
       {/* Current Weather Card */}
-      <Card className="bg-background">
+      <Card className="bg-background" >
         {renderCurrentWeatherError()}
         {isCurrentWeatherLoading ? (
           <CitySkeleton />
@@ -76,8 +118,25 @@ function WeatherContent() {
           <CurrentWeather weatherData={currentWeather} />
         ) : null}
       </Card>
+
+      {/* Past 24Hr Weather Card */}
+    
+        {renderPast24HrError()}
+        {isPast24HrWeatherLoading ? (
+          <CitySkeleton />
+        ) : past24HrWeather ? (
+          <HourWeatherCard weatherData={past24HrWeather} />
+        ) : null}
+     
+      {/*History Weather Card */}
+      <div className="bg-background">
+        {renderHistoryWeatherError()}
+        {isHistoryWeatherLoading ? (
+          <CitySkeleton />
+        ) : past24HrWeather ? (
+          <HistoryWeather weatherData={historyWeather} />
+        ) : null}
+      </div>
     </div>
   );
 }
-
-export default WeatherContent;
