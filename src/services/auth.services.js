@@ -28,5 +28,22 @@ export const authService = {
         const { password, ...userWithoutPassword } = newUser;
         return userWithoutPassword;
     },
+    async signIn(credentials) {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === credentials.email);
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const isValidPassword = await bcrypt.compare(credentials.password, user.password);
+        if (!isValidPassword) {
+            throw new Error('Invalid password');
+        }
+
+        // Return user without password
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
+    },
 
 }
