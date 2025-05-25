@@ -1,10 +1,15 @@
 import React from "react";
 import { weatherService } from "@/services/weather.services";
+import WeatherContent from "@/components/WeatherContent";
 
 function Weather() {
-  const { data, error, isError } = weatherService.getCurrentWeather("accra");
-  console.log(data)
-  return <div>Weather</div>;
+ 
+  
+  return (
+    <div>
+      <WeatherContent />
+    </div>
+  );
 }
 
 export default Weather;

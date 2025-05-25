@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query"
 const weatherapiApiKey = import.meta.env.VITE_WEATHERAPI_API_KEY
 
 export const weatherService = {
-    getCurrentWeather({ city }) {
+    getCurrentWeather({ city = 'accra' }) {
         const currentWeatherEndpoint = `${weatherapiBaseURL}/current.json?key=${weatherapiApiKey}&q=${city}`
+        console.log(currentWeatherEndpoint)
 
         return useQuery({
             queryKey: ["currentWeather", city],
