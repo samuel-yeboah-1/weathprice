@@ -25,6 +25,8 @@ export const weatherService = {
                 return data;
             },
             enabled: !!city,
+            retry: 2,
+            retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000)
         })
     },
 
@@ -47,12 +49,14 @@ export const weatherService = {
                 const data = await res.json();
                 return data;
             },
+            retry: 2,
+            retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 5000),
             enabled: !!city
         })
 
     },
 
-     getHistoryWeather({ city, days = 10 }) {
+    getHistoryWeather({ city, days = 10 }) {
         // Calculate start and end dates
         const endDate = getDaysAgo(1); // Yesterday (API doesn't allow today's history)
         const startDate = getDaysAgo(days);
