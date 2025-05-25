@@ -11,8 +11,8 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { authService } from "@/services/auth.service";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { authService } from "@/services/auth.services";
 
 function AuthForm({ className = "" }) {
   const navigate = useNavigate();
