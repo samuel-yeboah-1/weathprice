@@ -136,3 +136,6 @@ Breakpoints:
 - [React Query](https://tanstack.com/query/latest) for data fetching
 - [Chart.js](https://www.chartjs.org/) for charts
 - [React Router](https://reactrouter.com/) for routing
+
+## Deployed Version
+(https://weathprice.vercel.app/prices)
