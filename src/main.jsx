@@ -4,11 +4,17 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { router } from "../routes";
 import TanstackQueryProvider from "./components/query-provider";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TanstackQueryProvider>
-      <RouterProvider router={router} />
-    </TanstackQueryProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <TanstackQueryProvider>
+          <RouterProvider router={router} />
+        </TanstackQueryProvider>
+      </ThemeProvider>
+    </AuthProvider>
   </StrictMode>
 );
