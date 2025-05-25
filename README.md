@@ -5,18 +5,21 @@ A modern React application that combines weather information and cryptocurrency 
 ## 🌟 Features
 
 - **Weather Dashboard**
+
   - Real-time weather data from WeatherAPI API
   - Search for weather by city name
   - Detailed weather information including temperature, humidity, wind speed, and more
   - Clean and intuitive user interface
 
 - **Cryptocurrency Tracker**
+
   - Live cryptocurrency price updates from CoinGecko API
   - Interactive price charts with multiple time ranges
   - Support for multiple cryptocurrencies
   - Historical price data visualization
 
 - **Authentication System**
+
   - User registration and login
   - Secure password hashing
   - Protected routes
@@ -44,17 +47,20 @@ A modern React application that combines weather information and cryptocurrency 
 ## 📦 Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd sharpetwo
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create a `.env` file in the root directory and add your API keys:
+
    ```env
    VITE_OPENWEATHER_API_KEY=your_weatherapi_api_key
    ```
@@ -103,17 +109,19 @@ src/
 - Debounced search inputs
 - React Query for efficient data fetching and caching
 - Optimized chart rendering
-- Lazy loading of route components
+- Lazy Loading route components
 - Proper error boundaries for stability
 
 ## 📱 Responsive Design
 
 The application is fully responsive and works on:
+
 - Desktop monitors
 - Tablets
 - Mobile phones
 
 Breakpoints:
+
 - Mobile: 320px - 480px
 - Tablet: 481px - 768px
 - Desktop: 769px+
