@@ -5,7 +5,7 @@ const PriceContext = createContext({
   setSelectedCoin: () => null,
 });
 
-export function CryptoProvider({ children, defaultCoin = "bitcoin" }) {
+export function PriceContextProvider({ children, defaultCoin = "bitcoin" }) {
   const [selectedCoin, setSelectedCoin] = useState(() => {
     try {
       const saved = localStorage.getItem("selectedCoin");
