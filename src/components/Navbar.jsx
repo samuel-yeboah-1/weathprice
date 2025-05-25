@@ -11,6 +11,11 @@ function Nav({ onMenuToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
 
+    const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   const navLinks = [
     { path: "/weather", label: "Weather" },
     { path: "/prices", label: "Prices" },
@@ -35,8 +40,31 @@ function Nav({ onMenuToggle }) {
     </>
   );
 
+  const AuthSection = () => (
+    <>
+      {auth ? (
+        <div className="flex items-center gap-4">
+          <span className="text-sm">
+            Welcome, {auth.username || auth.email}
+          </span>
+          <Button variant="secondary" size="sm" onClick={handleLogout}>
+            Sign Out
+          </Button>
+        </div>
+      ) : (
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => navigate("/auth/signin")}
+        >
+          Sign In
+        </Button>
+      )}
+    </>
+  );
+
   return (
-    <header className="h-16 bg-background border-b flex items-center justify-between">
+    <header className="h-16 bg-background border-b flex items-center justify-between gap-4 px-4">
       <div className="flex items-center justify-between gap-8 w-full">
         <div className="flex items-center  gap-4">
           <h1 className="text-lg font-bold pl-2">WeathPrice Dashboard</h1>
@@ -59,6 +87,9 @@ function Nav({ onMenuToggle }) {
           <NavLinks />
           <ModeToggle />
         </nav>
+      </div>
+      <div className="hidden md:flex">
+        <AuthSection />
       </div>
     </header>
   );

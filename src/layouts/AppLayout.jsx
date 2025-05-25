@@ -1,9 +1,12 @@
+// src/layouts/AppLayout.jsx
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
+import { useAuthContext } from "@/contexts/AuthContext";
 import Sidebar from "../components/Sidebar";
 import Nav from "@/components/Navbar";
-
+import { Button } from "@/components/ui/button";
 export default function AppLayout() {
+  const { auth } = useAuthContext();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -12,7 +15,7 @@ export default function AppLayout() {
   };
 
   return (
-    <div className="flex bg-background text-foreground">
+    <div className="flex bg-background text-foreground h-screen">
       <Sidebar isOpen={isMobileMenuOpen} onMenuToggle={toggleMenu} />
       <div
         className={`
@@ -29,7 +32,16 @@ export default function AppLayout() {
           className="flex-1 p-4 overflow-auto"
           onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}
         >
-          <Outlet />
+          {auth ? (
+            <Outlet />
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full gap-4">
+              <p className="text-lg font-medium">
+                You must sign in to view the dashboard
+              </p>
+              <Button onClick={() => navigate("/auth/signin")}>Sign In</Button>
+            </div>
+          )}
         </main>
       </div>
     </div>
